@@ -14,13 +14,15 @@ public class Main {
         boolean endOfGame = false;
         getPlayerInfo();
         dealCards();
-        System.out.println("Player Name: " + players.get(0).getPlayerName() + " " + players.get(0).toStringBrief());
-        System.out.println("Player2 Name: " + players.get(1).getPlayerName() + " " + players.get(1).toStringBrief());
-        System.out.println("Player3 Name: " + players.get(2).getPlayerName() + " " + players.get(2).toStringBrief());
-        System.out.println("Player4 Name: " + players.get(3).getPlayerName() + " " + players.get(3).toStringBrief());
+
+        System.out.println("Player1 Name: " + players.get(0).getPlayerName() + " " + players.get(0).toStringBrief());
+        System.out.println("Player2 Name: " + players.get(1).getPlayerName()+ " " + players.get(1).toStringBrief());
+        System.out.println("Player3 Name: " + players.get(2).getPlayerName()+ " " + players.get(2).toStringBrief());
+        System.out.println("Player4 Name: " + players.get(3).getPlayerName()+ " " + players.get(3).toStringBrief());
 
 
         while (endOfGame == false) {
+
 
 
             endOfGame = true;
@@ -79,10 +81,22 @@ public class Main {
             players.get(3).addCard(deck.dealCard());
         }
 
-        players.set(0, players.get(0).sortHand());
-        players.set(1, players.get(1).sortHand());
-        players.set(2, players.get(2).sortHand());
-        players.set(3, players.get(3).sortHand());
+
+        ArrayList<String> names = new ArrayList<>();
+        for (int i = 0; i < players.size(); i++) {
+            names.add(players.get(i).getPlayerName());
+            players.set(i, players.get(i).sortHand());
+            players.get(i).setPlayerName(names.get(i));
+        }
+
+    }
+
+    private static void makeBets() {
+        for (int i = 0; i < numberOfPlayers; i++) {
+            System.out.println(players.get(i).getPlayerName() + " what is your bid? ");
+            players.get(i).setBet(reader.nextInt());
+        }
+
 
     }
 }

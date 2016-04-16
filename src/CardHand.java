@@ -103,7 +103,7 @@ public class CardHand extends Player {
 
         StringBuilder shortString = new StringBuilder("");
         for (Card card : cards) {
-            shortString.append(card.toStringBrief());
+            shortString.append(card.toStringBrief() + "(" + card.getDeckValue() + ")");
             shortString.append(" ");
         }
 
