@@ -25,6 +25,10 @@ public class Player {
         return playerName;
     }
 
+    public String getCPUName(int nameNumber) {
+        return makeName(nameNumber);
+    }
+
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
@@ -38,29 +42,39 @@ public class Player {
         this.score = score;
     }
 
-    private String makeName(int selectedNumber){
+    private String makeName(int selectedNumber) {
         String nameAI = "";
 //
         switch (selectedNumber) {
-            case 1: nameAI = "Sara";
+            case 1:
+                nameAI = "Sara";
                 break;
-            case 2: nameAI = "Bruce";
+            case 2:
+                nameAI = "Bruce";
                 break;
-            case 3: nameAI = "Emma";
+            case 3:
+                nameAI = "Emma";
                 break;
-            case 4: nameAI = "Noah";
+            case 4:
+                nameAI = "Noah";
                 break;
-            case 5: nameAI = "Olivia";
+            case 5:
+                nameAI = "Olivia";
                 break;
-            case 6: nameAI = "Ava";
+            case 6:
+                nameAI = "Ava";
                 break;
-            case 7: nameAI = "Jayden";
+            case 7:
+                nameAI = "Jayden";
                 break;
-            case 8: nameAI = "Ethan";
+            case 8:
+                nameAI = "Ethan";
                 break;
-            case 9: nameAI = "Isabella";
+            case 9:
+                nameAI = "Isabella";
                 break;
-            case 10: nameAI = "Hannah";
+            case 10:
+                nameAI = "Hannah";
                 break;
         }
         return nameAI;
