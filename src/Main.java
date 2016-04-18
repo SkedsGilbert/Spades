@@ -18,6 +18,8 @@ public class Main {
             dealCards();
             makeBets();
 
+            testRun();
+
 
 
             endOfGame = true;
@@ -40,7 +42,7 @@ public class Main {
 
         if (players.size() < 4) {
             numberOfAI = 4 - players.size();
-            for (int i = numberOfAI; i <= 4; i++) {
+            for (int i = players.size(); i < 4; i++) {
                 CardHand compPlayer = new CardHand();
                 compPlayer.setPlayerName(compPlayer.getCPUName(i));
                 players.add(compPlayer);
@@ -102,6 +104,12 @@ public class Main {
         for (int i = 0; i < numberOfPlayers; i++) {
             System.out.println(players.get(i).getPlayerName() + " what is your bid? ");
             players.get(i).setBet(reader.nextInt());
+        }
+    }
+
+    private static void testRun() {
+        for (int i = 0; i < players.size(); i++) {
+            System.out.println("Player Name: " + players.get(i).getPlayerName() + " " + players.get(i).isAIPlayer());
         }
     }
 }
