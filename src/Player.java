@@ -6,6 +6,7 @@ public class Player {
     private String playerName;
     private int score = 0;
     private int bet = 0;
+    private boolean isAIPlayer = false;
 
     public Player() {
         playerName = "";
@@ -15,11 +16,20 @@ public class Player {
     public Player(int name) {
         playerName = makeName(name);
         score = 0;
+        isAIPlayer = true;
     }
 
     public Player(String name) {
         playerName = name;
         score = 0;
+    }
+
+    public boolean isAIPlayer() {
+        return isAIPlayer;
+    }
+
+    public void setAIPlayer(boolean AIPlayer) {
+        isAIPlayer = AIPlayer;
     }
 
     public String getPlayerName() {
@@ -51,7 +61,7 @@ public class Player {
         this.score = score;
     }
 
-    private String makeName(int selectedNumber) {
+    protected String makeName(int selectedNumber) {
         String nameAI = "";
 //
         switch (selectedNumber) {

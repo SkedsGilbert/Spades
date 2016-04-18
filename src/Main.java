@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -7,21 +8,15 @@ public class Main {
     private static int numberOfAI = 0;
     private static Scanner reader = new Scanner(System.in);
     private static ArrayList<CardHand> players = new ArrayList<>();
-    private static ArrayList<Player> cpuPlayer = new ArrayList<>();
     private static CardDeck deck = new CardDeck();
 
     public static void main(String[] args) {
         boolean endOfGame = false;
-        getPlayerInfo();
-        dealCards();
-
-        System.out.println("Player1 Name: " + players.get(0).getPlayerName() + " " + players.get(0).toStringBrief());
-        System.out.println("Player2 Name: " + players.get(1).getPlayerName()+ " " + players.get(1).toStringBrief());
-        System.out.println("Player3 Name: " + players.get(2).getPlayerName()+ " " + players.get(2).toStringBrief());
-        System.out.println("Player4 Name: " + players.get(3).getPlayerName()+ " " + players.get(3).toStringBrief());
-
 
         while (endOfGame == false) {
+            getPlayerInfo();
+            dealCards();
+            makeBets();
 
 
 
@@ -32,12 +27,8 @@ public class Main {
     }
 
     private static void getPlayerInfo() {
-        System.out.print("Enter number of players: ");
-        numberOfPlayers = reader.nextInt();
-        while (numberOfPlayers < 1 || numberOfPlayers > 4) {
-            System.out.println("Enter number of players (1-4): ");
-            numberOfPlayers = reader.nextInt();
-        }
+
+        isValid();
 
         for (int i = 1; i <= numberOfPlayers; i++) {
             System.out.print("Enter player name: ");
@@ -49,14 +40,27 @@ public class Main {
 
         if (players.size() < 4) {
             numberOfAI = 4 - players.size();
-            for (int i = 1; i <= numberOfAI; i++) {
+            for (int i = numberOfAI; i <= 4; i++) {
                 CardHand compPlayer = new CardHand();
                 compPlayer.setPlayerName(compPlayer.getCPUName(i));
                 players.add(compPlayer);
+                players.get(i).setAIPlayer(true);
             }
-            for (int i = 0; i < cpuPlayer.size(); i++) {
 
-                System.out.println("Player name: " + cpuPlayer.get(i).getPlayerName());
+        }
+    }
+
+    private static void isValid() {
+        boolean isValidNumber = false;
+
+        while (isValidNumber == false) {
+            System.out.print("Enter number of players (1-4): ");
+            try {
+                numberOfPlayers = reader.nextInt();
+                isValidNumber = true;
+            } catch (InputMismatchException e) {
+                isValidNumber = false;
+                reader.next();
             }
         }
     }
@@ -83,10 +87,13 @@ public class Main {
 
 
         ArrayList<String> names = new ArrayList<>();
+        ArrayList<Boolean> isAIPlayers = new ArrayList<>();
         for (int i = 0; i < players.size(); i++) {
             names.add(players.get(i).getPlayerName());
+            isAIPlayers.add(players.get(i).isAIPlayer());
             players.set(i, players.get(i).sortHand());
             players.get(i).setPlayerName(names.get(i));
+            players.get(i).setAIPlayer(isAIPlayers.get(i));
         }
 
     }
@@ -96,8 +103,6 @@ public class Main {
             System.out.println(players.get(i).getPlayerName() + " what is your bid? ");
             players.get(i).setBet(reader.nextInt());
         }
-
-
     }
 }
 
