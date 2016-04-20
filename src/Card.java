@@ -8,7 +8,7 @@ public class Card {
     public static final int CLUBS = 1;
     public static final int DIAMONDS = 2;
     public static final int HEARTS = 3;
-    public static final int SPADES =4;
+    public static final int SPADES = 4;
 
     // Face values
 
@@ -19,19 +19,19 @@ public class Card {
 
     // Suit Names
     private final String[] suitNames = new String[]
-            {"Clubs","Diamonds","Hearts","Spades"};
+            {"Clubs", "Diamonds", "Hearts", "Spades"};
 
     // Face names
     private final String[] faceNames = new String[]
-            {"2","3","4","5","6","7","8","9","10","Jack","Queen","King","Ace",};
+            {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace",};
 
     // Card Values
-    private  int deckValue;
-    private  int faceValue;
-    private  int suitValue;
+    private int deckValue;
+    private int faceValue;
+    private int suitValue;
 
-    public Card(int deckValue){
-        if ((deckValue <1) || deckValue > 52){
+    public Card(int deckValue) {
+        if ((deckValue < 1) || deckValue > 52) {
             throw new IllegalArgumentException();
         }
 
@@ -40,17 +40,17 @@ public class Card {
         suitValue = toSuitValue(deckValue);
     }
 
-    public Card(int faceValue, int suitValue){
-        if ((faceValue < 2) || (suitValue > 14)){
+    public Card(int faceValue, int suitValue) {
+        if ((faceValue < 2) || (suitValue > 14)) {
             throw new IllegalArgumentException();
         }
-        if ((suitValue <1) || (suitValue > 4)){
+        if ((suitValue < 1) || (suitValue > 4)) {
             throw new IllegalArgumentException();
         }
 
         this.faceValue = faceValue;
         this.suitValue = suitValue;
-        this.deckValue = toDeckValue(faceValue,suitValue);
+        this.deckValue = toDeckValue(faceValue, suitValue);
 
     }
 
@@ -58,27 +58,27 @@ public class Card {
         return deckValue;
     }
 
-    public String getFaceName(){
+    public String getFaceName() {
         return faceNames[faceValue - 2];
     }
 
-    public int getFaceValue(){
+    public int getFaceValue() {
         return faceValue;
     }
 
-    public String getSuitName(){
+    public String getSuitName() {
         return suitNames[suitValue - 1];
     }
 
-    public int getSuitValue(){
+    public int getSuitValue() {
         return suitValue;
     }
 
     public static int toDeckValue(int faceValue, int suitValue) {
-        if ((faceValue < 2) || (suitValue > 14)){
+        if ((faceValue < 2) || (suitValue > 14)) {
             throw new IllegalArgumentException();
         }
-        if ((suitValue <1) || (suitValue > 4)){
+        if ((suitValue < 1) || (suitValue > 4)) {
             throw new IllegalArgumentException();
         }
 
@@ -86,9 +86,9 @@ public class Card {
         return convertedDeckValue;
     }
 
-    public static int toFaceValue(int deckValue){
+    public static int toFaceValue(int deckValue) {
         int convertedFaceValue = (deckValue % 13) + 1;
-        if (convertedFaceValue == 1){
+        if (convertedFaceValue == 1) {
             convertedFaceValue = 14;
         }
         return convertedFaceValue;
@@ -96,33 +96,31 @@ public class Card {
 
     public int toSuitValue(int deckValue) {
         int convertedSuitValue = deckValue / 13;
-        if (deckValue % 13 !=0){
+        if (deckValue % 13 != 0) {
             convertedSuitValue++;
         }
         return convertedSuitValue;
     }
 
-    public String toStringBrief(){
+    public String toStringBrief() {
         String faceBrief;
-        if (faceValue <=10){
-             faceBrief = getFaceName();
+        if (faceValue <= 10) {
+            faceBrief = getFaceName();
         } else {
-            faceBrief = getFaceName().substring(0,1);
+            faceBrief = getFaceName().substring(0, 1);
         }
 
-        String suitBrief = getSuitName().substring(0,1);
+        String suitBrief = getSuitName().substring(0, 1);
         String brief = faceBrief + suitBrief;
         return brief;
     }
 
-    public boolean equals(Card other){
-        if (deckValue != other.deckValue){
+    public boolean equals(Card other) {
+        if (deckValue != other.deckValue) {
             return false;
         }
         return true;
     }
-
-
 
 
 }
