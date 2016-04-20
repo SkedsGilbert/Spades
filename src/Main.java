@@ -1,6 +1,4 @@
-
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -9,28 +7,33 @@ public class Main {
     private static Scanner reader = new Scanner(System.in);
     private static ArrayList<CardHand> players = new ArrayList<>();
     private static CardDeck deck = new CardDeck();
+    private static Utils utils = new Utils();
 
     public static void main(String[] args) {
         boolean endOfGame = false;
+        boolean endOfRound = false;
 
         while (endOfGame == false) {
             getPlayerInfo();
             dealCards();
             makeBets();
+            while (endOfRound == false) {
 
-            testRun();
+                showHand(players.get(0));
+                players.get(0).playCard(utils.isValidInt("Which card to play? "));
+                showHand(players.get(0));
 
+
+                endOfRound = true;
+            }
 
 
             endOfGame = true;
-
-
         }
     }
 
     private static void getPlayerInfo() {
-
-        isValid();
+        numberOfPlayers = utils.isValidInt("Enter number of players (1-4): ");
 
         for (int i = 1; i <= numberOfPlayers; i++) {
             System.out.print("Enter player name: ");
@@ -50,22 +53,9 @@ public class Main {
             }
 
         }
+
     }
 
-    private static void isValid() {
-        boolean isValidNumber = false;
-
-        while (isValidNumber == false) {
-            System.out.print("Enter number of players (1-4): ");
-            try {
-                numberOfPlayers = reader.nextInt();
-                isValidNumber = true;
-            } catch (InputMismatchException e) {
-                isValidNumber = false;
-                reader.next();
-            }
-        }
-    }
 
     private static void dealCards() {
         for (int i = 0; i < deck.getSize() || i >= deck.getSize(); i++) {
@@ -101,17 +91,30 @@ public class Main {
     }
 
     private static void makeBets() {
+        int bid;
         for (int i = 0; i < numberOfPlayers; i++) {
-            System.out.println(players.get(i).getPlayerName() + " what is your bid? ");
-            players.get(i).setBet(reader.nextInt());
+            bid = utils.isValidInt(players.get(i).getPlayerName() + " what is you bid? ");
+            players.get(i).setBet(bid);
         }
     }
+/*
 
     private static void testRun() {
         for (int i = 0; i < players.size(); i++) {
             System.out.println("Player Name: " + players.get(i).getPlayerName() + " " + players.get(i).isAIPlayer());
         }
     }
+*/
+
+    private static void showHand(CardHand cardHand) {
+        System.out.println(cardHand.getPlayerName() + "'s hand: " + cardHand.toStringBrief());
+    }
+
+    private static void playCard(CardHand cardHand) {
+
+
+    }
+
 }
 
 
