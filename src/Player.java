@@ -1,12 +1,15 @@
+import java.util.ArrayList;
 
 /**
  * Created by Jsin on 4/15/2016.
  */
-public class Player {
+public class Player extends CardHand{
     private String playerName;
     private int score = 0;
     private int bet = 0;
     private boolean isAIPlayer = false;
+    private static Utils utils = new Utils();
+    private ArrayList<CardHand> cards = new ArrayList<>();
 
     public Player() {
         playerName = "";
@@ -98,6 +101,43 @@ public class Player {
         }
         return nameAI;
     }
+
+    public void showHand(CardHand cardHand) {
+        System.out.println(getPlayerName() + "'s hand: " + cardHand.toStringBrief() );
+    }
+
+    public void makeBets(CardHand cardHand) {
+        int bid;
+        if (isAIPlayer()) {
+            aiBet();
+        } else {
+            showHand(cardHand);
+            bid = utils.isValidInt(getPlayerName() + " what is your bid? ");
+            setBet(bid);
+             }
+    }
+
+    public void aiBet() {
+        int betAmount = 0;
+        for (Card card : getCards()) {
+
+            if (card.getFaceName().equalsIgnoreCase("jack")) {
+                betAmount++;
+            } else if (card.getFaceName().equalsIgnoreCase("queen")) {
+                betAmount++;
+            } else if (card.getFaceName().equalsIgnoreCase("king")) {
+                betAmount++;
+            } else if (card.getFaceName().equalsIgnoreCase("ace")) {
+                betAmount++;
+            }
+            
+        }
+
+        setBet(betAmount);
+    }
+
+
+
 }
 
 

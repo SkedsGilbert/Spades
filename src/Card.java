@@ -30,6 +30,10 @@ public class Card {
     private int faceValue;
     private int suitValue;
 
+    public Card() {
+
+    }
+
     public Card(int deckValue) {
         if ((deckValue < 1) || deckValue > 52) {
             throw new IllegalArgumentException();
@@ -121,6 +125,5 @@ public class Card {
         }
         return true;
     }
-
 
 }

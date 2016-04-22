@@ -1,10 +1,11 @@
 import java.util.*;
-import java.util.Collections;
+
+import static java.util.Collections.sort;
 
 /**
  * Created by Jsin on 4/11/2016.
  */
-public class CardHand extends Player {
+public class CardHand extends Card {
     private final String EMPTY_HAND = "Empty Hand";
     private ArrayList<Card> cards = new ArrayList<>();
 
@@ -46,6 +47,10 @@ public class CardHand extends Player {
         return cards.size();
     }
 
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
+
     public boolean hasDeckValue(int deckValue) {
         for (Card card : cards) {
             if (card.getDeckValue() == deckValue) {
@@ -57,6 +62,7 @@ public class CardHand extends Player {
 
     public boolean hasFaceValue(int faceValue) {
         for (Card card : cards) {
+            System.out.println(card.getFaceValue());
             if (card.getFaceValue() == faceValue) {
                 return true;
             }
@@ -110,21 +116,23 @@ public class CardHand extends Player {
         return shortString.toString().trim();
     }
 
-    public CardHand sortHand() {
+    public void sortHand() {
+
         ArrayList<Integer> newHand = new ArrayList<>();
-        CardHand sortedHand = new CardHand();
         for (Card card : cards) {
             newHand.add(card.getDeckValue());
         }
 
+        cards.clear();
         Collections.sort(newHand);
 
         for (Integer aNewHand : newHand) {
-            sortedHand.addCard(aNewHand);
+            Card newCard = new Card(aNewHand);
+            cards.add(newCard);
         }
-
-        return sortedHand;
     }
+
+
 
 }
 

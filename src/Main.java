@@ -5,7 +5,7 @@ public class Main {
     private static int numberOfPlayers = 0;
     private static int numberOfAI = 0;
     private static Scanner reader = new Scanner(System.in);
-    private static ArrayList<CardHand> players = new ArrayList<>();
+    private static ArrayList<Player> players = new ArrayList<>();
     private static CardDeck deck = new CardDeck();
     private static Utils utils = new Utils();
 
@@ -16,12 +16,19 @@ public class Main {
         while (endOfGame == false) {
             getPlayerInfo();
             dealCards();
-            makeBets();
-            while (endOfRound == false) {
+            players.get(0).makeBets(players.get(0));
+            players.get(1).makeBets(players.get(1));
+            players.get(2).makeBets(players.get(2));
+            players.get(3).makeBets(players.get(3));
+            for (int i = 0; i < players.size(); i++) {
+                System.out.println(players.get(i).toStringBrief());
+                System.out.println("Player" + i + " " +players.get(i).getBet());
+                System.out.println("");
+            }
 
-                showHand(players.get(0));
+            while (endOfRound == false) {
                 players.get(0).playCard(utils.isValidInt("Which card to play? "));
-                showHand(players.get(0));
+                players.get(0).showHand(players.get(0));
 
 
                 endOfRound = true;
@@ -38,7 +45,7 @@ public class Main {
         for (int i = 1; i <= numberOfPlayers; i++) {
             System.out.print("Enter player name: ");
             String playerName = reader.next();
-            CardHand newPlayer = new CardHand();
+            Player newPlayer = new Player();
             newPlayer.setPlayerName(playerName);
             players.add(newPlayer);
         }
@@ -46,7 +53,7 @@ public class Main {
         if (players.size() < 4) {
             numberOfAI = 4 - players.size();
             for (int i = players.size(); i < 4; i++) {
-                CardHand compPlayer = new CardHand();
+                Player compPlayer = new Player();
                 compPlayer.setPlayerName(compPlayer.getCPUName(i));
                 players.add(compPlayer);
                 players.get(i).setAIPlayer(true);
@@ -83,34 +90,16 @@ public class Main {
         for (int i = 0; i < players.size(); i++) {
             names.add(players.get(i).getPlayerName());
             isAIPlayers.add(players.get(i).isAIPlayer());
-            players.set(i, players.get(i).sortHand());
             players.get(i).setPlayerName(names.get(i));
             players.get(i).setAIPlayer(isAIPlayers.get(i));
+            players.get(i).sortHand();
         }
 
     }
 
-    private static void makeBets() {
-        int bid;
-        for (int i = 0; i < numberOfPlayers; i++) {
-            bid = utils.isValidInt(players.get(i).getPlayerName() + " what is you bid? ");
-            players.get(i).setBet(bid);
-        }
-    }
-/*
-
-    private static void testRun() {
-        for (int i = 0; i < players.size(); i++) {
-            System.out.println("Player Name: " + players.get(i).getPlayerName() + " " + players.get(i).isAIPlayer());
-        }
-    }
-*/
-
-    private static void showHand(CardHand cardHand) {
-        System.out.println(cardHand.getPlayerName() + "'s hand: " + cardHand.toStringBrief());
-    }
 
     private static void playCard(CardHand cardHand) {
+
 
 
     }
